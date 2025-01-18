@@ -39,7 +39,6 @@ export const getAllSubtopicsByTopicId = async (req, res) => {
 export const createSubtopic = async (req, res) => {
 	try {
 		const { topicId, subtopicName, time } = req.body;
-		console.log("Received data:", { topicId, subtopicName, time });
 
 		// Validate required fields
 		if (!topicId || !subtopicName || time === undefined) {

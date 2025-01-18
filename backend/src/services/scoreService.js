@@ -34,7 +34,7 @@ export async function getTopScoreService(subtopicId) {
 	]);
 }
 
-export async function getAllScoreService(sort) {
+export async function getAllScoreService() {
 	return Score.aggregate([
 		{
 			$lookup: {
@@ -95,6 +95,22 @@ export async function getAllScoreService(sort) {
 
 export async function getScoreByIdService(scoreId) {
 	return Score.findById(scoreId);
+}
+
+export async function getScoreByUserIdService(userId, subtopicId) {
+	return Score.findOne({ userId, subtopicId });
+}
+
+export async function updateScoreService(scoreId, score, timeSpent) {
+	// อัปเดตข้อมูลในฐานข้อมูลโดยใช้ scoreId เพื่อค้นหาและอัปเดตคะแนนและเวลาที่ใช้ไป
+	return Score.findByIdAndUpdate(
+		scoreId,
+		{
+			score: score,
+			timeSpent: timeSpent,
+		},
+		{ new: true } // คืนค่าที่ถูกอัปเดตใหม่
+	);
 }
 
 export async function createScoreService(data) {

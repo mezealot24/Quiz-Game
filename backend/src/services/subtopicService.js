@@ -31,7 +31,6 @@ export const findAllSubtopicsByTopicId = async (topicId) => {
 };
 
 export const createNewSubtopic = async ({ topicId, subtopicName, time }) => {
-	console.log("Creating new subtopic:", { topicId, subtopicName, time });
 	const newSubtopic = new Subtopic({
 		topicId,
 		subtopicName,
@@ -40,7 +39,7 @@ export const createNewSubtopic = async ({ topicId, subtopicName, time }) => {
 
 	try {
 		await newSubtopic.save();
-		console.log("Subtopic saved successfully");
+
 		return newSubtopic;
 	} catch (error) {
 		console.error("Error saving subtopic:", error);

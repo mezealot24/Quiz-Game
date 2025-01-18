@@ -5,7 +5,10 @@ export const findTopicById = async (id) => {
 };
 
 export const findAllTopics = async () => {
-	return await Topic.find({});
+	return await Topic.find({
+		_id: { $ne: "66f3e854b4bc1daba5211ca3" },
+		topicName: { $ne: "เกมคณิตคิดเร็ว" },
+	});
 };
 
 export const createNewTopic = async ({ category, topicName }) => {

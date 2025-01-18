@@ -3,6 +3,7 @@ import {
 	getTopScore,
 	getAllScore,
 	createScore,
+	updateScore,
 	deleteScore,
 } from "../controllers/scoreController.js";
 import authenticateUserMiddleware from "../middlewares/userAuthMiddleware.js";
@@ -18,6 +19,9 @@ router.get("/", authenticateAdminMiddleware, getAllScore);
 
 // userAuthMiddleware
 router.post("/", authenticateUserMiddleware, createScore);
+
+// adminAuthMiddleware
+router.patch("/:scoreId", authenticateAdminMiddleware, updateScore);
 
 // adminAuthMiddleware
 router.delete("/:scoreId", authenticateAdminMiddleware, deleteScore);

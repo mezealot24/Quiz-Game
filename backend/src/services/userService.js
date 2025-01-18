@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import { NotFoundError } from "../utils/error.js";
 import { hashPassword, comparePassword } from "../utils/hash.js";
 import { sign } from "../utils/token.js";
 
@@ -56,17 +57,24 @@ export const loginUser = async ({ username, password }) => {
 	return { token, user };
 };
 
-export const modifyUser = async (id, name) => {
+export const updateUser = async (id, data) => {
 	const user = await User.findById(id);
 
 	if (!user) {
 		throw new Error("User not found");
 	}
 
-	user.name = name;
-	await user.save();
+	return User.findByIdAndUpdate(id, data, { new: true });
+};
 
-	return user;
+export const setUserAdmin = async (id, isAdmin) => {
+	const user = await User.findById(id);
+
+	if (!user) {
+		throw new Error("User not found");
+	}
+
+	return User.findByIdAndUpdate(id, { isAdmin }, { new: true });
 };
 
 export const removeUser = async (id) => {
@@ -87,7 +95,9 @@ export const fetchAllUsers = async () => {
 export const fetchUserById = async (id) => {
 	const user = await User.findById(id);
 	if (!user) {
-		throw new Error("User not found");
+		throw new NotFoundError("User not found");
 	}
+
+	user.password = "";
 	return user;
 };

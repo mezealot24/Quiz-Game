@@ -38,15 +38,18 @@ export const getAllQuestionsBySubtopicId = async (req, res) => {
 
 export const createQuestion = async (req, res) => {
 	try {
-		const { subtopicId, questionName, image, option, hint } = req.body;
+		const { subtopicId, questionName, image, option, hint, createOn } =
+			req.body;
 		const question = await createNewQuestion({
 			subtopicId,
 			questionName,
 			image,
 			option,
 			hint,
+			createOn, // ส่ง createOn ไปยัง service
 		});
-		res.status(200).json({
+		res.status(201).json({
+			// เปลี่ยน status เป็น 201 สำหรับการสร้างใหม่
 			message: "Question created successfully",
 			data: question,
 		});
